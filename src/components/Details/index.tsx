@@ -3,12 +3,14 @@ import MyImage from '../MyImage'
 import './style.scss'
 
 export const Details = ({ data }: { data: IValue | null }) => {
-    const getValues = (str: string) => {
+    const getValues = (prefix: string) => {
+        if (!data) return []
         const result: string[] = []
-        for (let i = 1; i < 16; i++) {
-            const value = `${str}${i}`
-            if (data && data[value]) {
-                result.push(data[value])
+        for (let i = 1; i <= 15; i++) {
+            const key = `${prefix}${i}` as keyof IValue
+            const value = data[key]
+            if (value) {
+                result.push(value)
             }
         }
         return [...new Set(result)]

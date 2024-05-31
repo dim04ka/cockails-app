@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IValue } from '../interface'
 
 export interface IValueState {
@@ -13,7 +13,7 @@ export const counterSlice = createSlice({
     name: 'coctail',
     initialState,
     reducers: {
-        add: (state, payload) => {
+        add: (state, payload: PayloadAction<Record<string, IValue[]>>) => {
             state.value = {
                 ...state.value,
                 ...payload.payload,

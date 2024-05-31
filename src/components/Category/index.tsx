@@ -10,8 +10,8 @@ import Content from '../Content'
 
 const Category = () => {
     const [loading, setLoading] = useState(false)
-    const [_, setError] = useState<unknown>(null)
-    const { category } = useParams()
+    const [error, setError] = useState<unknown>(null)
+    const { category } = useParams<{ category: string }>()
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -20,11 +20,11 @@ const Category = () => {
     const loadData = async () => {
         try {
             setLoading(true)
-            if (!value[category]) {
+            if (category && !value[category]) {
                 const result = await fetch(`${URL}${category}`)
                 const data: IDataSource = await result.json()
                 const value: Record<string, IValue[]> = {}
-                value[category as string] = data.drinks
+                value[category] = data.drinks
                 dispatch(add(value))
             }
         } catch (error) {
@@ -35,22 +35,30 @@ const Category = () => {
     }
 
     useEffect(() => {
-        const isExist = COCKTAIL_CODE.map((code: IItem) => code.code).some(
-            (code) => code === category
+        if (!category) return
+
+        const isExist = COCKTAIL_CODE.some(
+            (code: IItem) => code.code === category
         )
         if (!isExist) {
             navigate('/404')
+            return
         }
+
         loadData()
     }, [category])
 
     return (
         <>
-            {loading ? (
-                <div>Loading...</div>
-            ) : (
-                <Content item={value[category]} />
-            )}
+            <>
+                {loading ? (
+                    <div>Loading...</div>
+                ) : error ? (
+                    <div>Error loading data</div>
+                ) : (
+                    <Content item={value[category]} />
+                )}
+            </>
         </>
     )
 }

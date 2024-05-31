@@ -9,42 +9,44 @@ const Content = ({ item }: { item: IValue[] }) => {
     const itemsDrink = item && item.map((item: IValue) => item.strDrink)
 
     const handleClick = (name: string) => {
-        const filteredData = item.filter(
-            (item: IValue) => item.strDrink === name
-        )
-        setData(filteredData[0])
-        setValue(name)
+        const filteredData = item.find((item: IValue) => item.strDrink === name)
+        if (filteredData) {
+            setData(filteredData)
+
+            setValue(name)
+        }
     }
 
     useEffect(() => {
-        if (item) {
+        if (item && item.length > 0) {
             const drink = item[0].strDrink
-            const filteredData = item.filter(
+            const filteredData = item.find(
                 (item: IValue) => item.strDrink === drink
             )
-            setData(filteredData[0])
-            setValue(drink)
+            if (filteredData) {
+                setData(filteredData)
+                setValue(drink)
+            }
         }
     }, [item])
 
     return (
         <>
             <ul className="menu-drink">
-                {itemsDrink &&
-                    itemsDrink.map((item: string) => {
-                        return (
-                            <li
-                                key={item}
-                                className={value === item ? 'active' : ''}
-                                onClick={() => handleClick(item)}
-                            >
-                                {item}
-                            </li>
-                        )
-                    })}
+                {itemsDrink?.map((drink: string) => {
+                    return (
+                        <li
+                            key={drink}
+                            className={value === drink ? 'active' : ''}
+                            onClick={() => handleClick(drink)}
+                        >
+                            {drink}
+                        </li>
+                    )
+                })}
             </ul>
             <hr />
-            <Details data={data} />
+            {data && <Details data={data} />}
         </>
     )
 }
