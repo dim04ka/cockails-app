@@ -1,0 +1,50 @@
+.main {
+    height: 100%;
+    background-color: rgb(157, 142, 142);
+    display: flex;
+    flex-direction: row;
+    max-width: 1024px;
+    margin: 0 auto;
+    @media only screen and (max-width: 600px) {
+        flex-direction: column;
+    }
+}
+
+.menu {
+    flex: 1;
+}
+
+.content {
+    flex: 3;
+    padding: 10px;
+    overflow: auto;
+}
+
+ul {
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+
+    li {
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+
+        a {
+            text-decoration-line: none;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            display: flex;
+            border: 1px solid black;
+            color: white;
+            background: #25221e;
+            &.active {
+                color: red;
+            }
+        }
+    }
+}

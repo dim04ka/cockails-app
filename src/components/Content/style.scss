@@ -1,0 +1,17 @@
+.menu-drink {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    li {
+        background: #009688;
+        padding: 10px;
+        height: 40px;
+        border: 1px solid transparent;
+        cursor: pointer;
+
+        &.active {
+            border: 1px solid rgb(161, 29, 29);
+        }
+    }
+}
