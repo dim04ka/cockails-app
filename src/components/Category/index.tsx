@@ -15,7 +15,7 @@ const Category = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const value = useSelector((state: IValueState) => state.todo.value)
+    const value = useSelector((state: IValueState) => state.value)
 
     const loadData = async () => {
         try {
@@ -56,7 +56,7 @@ const Category = () => {
                 ) : error ? (
                     <div>Error loading data</div>
                 ) : (
-                    <Content item={value[category]} />
+                    <Content item={value[category as string]} />
                 )}
             </>
         </>

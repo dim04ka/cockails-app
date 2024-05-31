@@ -9,8 +9,8 @@ const initialState: IValueState = {
     value: {},
 }
 
-export const counterSlice = createSlice({
-    name: 'coctail',
+export const todoSlice = createSlice({
+    name: 'todo',
     initialState,
     reducers: {
         add: (state, payload: PayloadAction<Record<string, IValue[]>>) => {
@@ -22,6 +22,6 @@ export const counterSlice = createSlice({
     },
 })
 
-export const { add } = counterSlice.actions
+export const { add } = todoSlice.actions
 
-export default counterSlice.reducer
+export default todoSlice.reducer
